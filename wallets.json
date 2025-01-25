@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "wallet": "$ADDRESS",
+        "privateKey": "$PRIVATEKEY"
+    },
+    {
+        "id": 2,
+        "wallet": "$ADDRESS",
+        "privateKey": "$PRIVATEKEY"
+    },
+// add more here if needed... (delete this line)
+]
+
