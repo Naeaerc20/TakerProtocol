@@ -58,17 +58,17 @@ async function activateNodeProcess() {
       console.log(`🚀 Activating Node for Wallet [${walletAddress}]...`);
 
       try {
-        const gasPrice = await provider.getGasPrice();
-        const feeData = await provider.getFeeData();
-        const maxFeePerGas = feeData.maxFeePerGas;
-        const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas;
+        // Obtener el último bloque para extraer el baseFee
+        const latestBlock = await provider.getBlock("latest");
+        const baseFeePerGas = latestBlock.baseFeePerGas;
 
+        // Se usa un gasLimit fijo de 75000 y se asigna el baseFee para maxFeePerGas y maxPriorityFeePerGas
         const txResponse = await signer.sendTransaction({
           to: ACTIVATION_CONTRACT,
           data: ACTIVATION_METHOD_ID,
-          gasLimit: Math.floor(Math.random() * (500000 - 250000 + 1)) + 250000,
-          maxFeePerGas: maxFeePerGas,
-          maxPriorityFeePerGas: maxPriorityFeePerGas
+          gasLimit: 75000,
+          maxFeePerGas: baseFeePerGas,
+          maxPriorityFeePerGas: baseFeePerGas
         });
 
         console.log(`📡 Tx Sent! - ${TX_EXPLORER}${txResponse.hash}`);
